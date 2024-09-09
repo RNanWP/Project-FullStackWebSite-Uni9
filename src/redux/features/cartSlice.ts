@@ -1,3 +1,4 @@
+//import { cartSlice } from './cartSlice';
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 interface IProduct {
@@ -20,9 +21,18 @@ export const cartSlice = createSlice({
                     return state.map((item) => {
                         return item.id === action.payload.id ? {...item, quantidade: item.quantidade + 1 }
                         : item;
-                    })
+                    });
                 }
-            }
-        }
-    }
-)
+            },
+
+removeFromCart: (state, action: PayloadAction<string>) => {
+    const id = action.payload
+    return state.filter((item) => item.id !== id)
+}
+
+        },
+    });
+
+
+    export const {addToCart, removeFromCart} = cartSlice.actions
+    export default cartSlice.reducer
